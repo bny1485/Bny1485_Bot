@@ -1,4 +1,4 @@
-# This is main file
+### --------------------- This is main file -------------------------- ###
 
 # telebot telegram api 
 # install it with pip3 install pyTelegramBotAPI 
@@ -6,26 +6,30 @@
 
 import telebot
 
-class main_bot():
 
-    def __init__(self, token, your_msg):
-        self.Auther = 'Benyamin'
-        self.Email = 'benyaminmahmoudyan@gmail.com'
-        self.phone = '+98-910-966-7550'
-        self.tele_user_name = '@bny1485'
-        self.token = token
-        self.your_msg = user_msg
+## -------- in this two line get token form "@botfather" and define bot  ------- ##
+token =  "1354592892:AAHdnEWxWPCPe39LCB1yRjxi1fojVzpQQ3s"
+bot = telebot.TeleBot(token)
+print('I AM start ...')
 
-    def about_me(self):
-        msg = f'I am {self.Auther} my email address is {self.Email} and this is my phone number {self.phone}'
-        return msg
+## ------ this function tell abot programmmer of this bot -------##
+@bot.message_handler(commands=['Auther'])
+def Hi(user):    
+    usr_id = user.from_user.id
+    bot.send_message(usr_id, "Yes, dear 😉🌹")
 
-    def it_is_work(self):
-        return f'I am Bny1485 Bot you can contact my owner with his telegram user name {self.tele_user_name} your token is {self.token} and your massge to me is {self.your_msg}'
+    msg = 'I am Benyamin my email address is benyaminmahmoudyan@gmail.com \
+    and this is my phone number +98-910-966-7550 you can contact me in in t \
+    elegram by @bny1485 instagram with this id @bny1485'
+    
+    bot.send_message(usr_id, msg)
 
-token = input('Welcome to Bny1485_Bot\nplase give me your bot token: ')
-user_msg = input('what is your massge for Auther : ')
+## ------- help and command massege ------- ##
+@bot.message_handler(commands=['start','help'])
+def send_welcome(message):
+    bot.reply_to(message, 'Hi. welcome to my bot 👋')
 
-call_bot = main_bot(token, user_msg)
-print(call_bot.about_me())
-print(call_bot.it_is_work())
+
+
+# this bilt in function to keep bot runing
+bot.polling()
