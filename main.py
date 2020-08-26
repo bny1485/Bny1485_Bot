@@ -5,7 +5,12 @@
 
 import telebot
 
-bot_token = "1211332991:AAFEJylXhEOfLanJavEkJVorQ0umHNmoK2w"
+# for more scurety
+with open(r"/home/bny1485/source_code/Bny1485_Bot/token_file.txt", "r") as txt_file:
+    bot_token = txt_file.readline()
+
+print('your token is : '+ str(bot_token))
+
 bot = telebot.TeleBot(bot_token)
 
 msg = ['I am Benyamin my email address is benyaminmahmoudyan@gmail.com \
@@ -31,5 +36,7 @@ def send_welcome(message):
     elif message == "help":
         bot.reply_to(message, msg[1])
 
+def main_bot():
+    pass
 
 bot.polling()
