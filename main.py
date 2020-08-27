@@ -9,34 +9,23 @@ import telebot
 with open(r"/home/bny1485/source_code/Bny1485_Bot/token_file.txt", "r") as txt_file:
     bot_token = txt_file.readline()
 
-print('your token is : '+ str(bot_token))
-
 bot = telebot.TeleBot(bot_token)
-
-msg = ['I am Benyamin my email address is benyaminmahmoudyan@gmail.com \
-    and this is my phone number +98-910-966-7550 you can contact me in in t \
-    elegram by @bny1485 instagram with this id @bny1485', 'my name is seventh robot I am from Seventh Regiment']
+print(bot_token)
 
 
 ## ------ this function tell abot programmmer of this bot -------##
-@bot.message_handler(command=['Auther'])
-def Hi(user):
+@bot.message_handler(commands=['start', 'Auther', 'Bot'])
+def About(user):
     usr_id = user.from_user.id
-    bot.send_message(usr_id, "Yes, dear 😉🌹")
-    global msg
-    bot.send_message(usr_id, msg[0])
+    main_text = user.text
+    if "/Auther" == main_text:
+        bot.send_message(usr_id, 'I am Benyamin my email address is benyaminmahmoudyan@gmail.com and this is my phone number +98-910-966-7550 you can contact me in telegram by @bny1485 instagram with this id @bny1485')
+    if "/start" in main_text:
+        bot_command = '/start\n/Auther\n/Bot'
+        bot.send_message(usr_id, bot_command)
+    if "/Bot" in main_text:
+        bot.send_message(
+            usr_id, 'my name is seventh robot I am from Seventh Regiment')
 
-
-## ------- help and command massege ------- ##
-@bot.message_handler(commands=['start', 'help'])
-def send_welcome(message):
-    global msg
-    if message == "start":
-        bot.reply_to(message, 'Hi. welcome to my bot 👋')
-    elif message == "help":
-        bot.reply_to(message, msg[1])
-
-def main_bot():
-    pass
 
 bot.polling()
